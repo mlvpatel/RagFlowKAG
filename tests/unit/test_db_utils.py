@@ -208,13 +208,17 @@ def test_create_document_store_creates_table():
     assert "CREATE TABLE IF NOT EXISTS document_store" in executed_sql
 
 
-def test_init_db_calls_both_create_functions():
+def test_init_db_creates_all_tables():
+    import src.kag.graph_store as graph_store
+
     with patch.object(db_utils, "create_application_logs") as mock_logs:
         with patch.object(db_utils, "create_document_store") as mock_docs:
-            db_utils.init_db()
+            with patch.object(graph_store, "create_kg_edges") as mock_kg:
+                db_utils.init_db()
 
     assert mock_logs.called
     assert mock_docs.called
+    assert mock_kg.called
 
 
 def test_module_imports_without_live_database():

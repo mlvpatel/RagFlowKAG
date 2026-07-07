@@ -13,6 +13,7 @@ def test_process_document_inserts_record_before_indexing(monkeypatch):
         "index_document",
         lambda path, file_id: order.append(("index", file_id)) or True,
     )
+    monkeypatch.setattr(tasks, "build_graph", lambda *a, **k: 0)
 
     result = tasks.process_document("/tmp/x.pdf", "x.pdf")
 
