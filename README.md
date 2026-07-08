@@ -1,10 +1,10 @@
 # RagFlowKAG
 
-**Knowledge augmented RAG. A knowledge graph is built from your documents and linked into every answer. A 2025 rung of the RagFlow line.**
+**Knowledge augmented RAG. A knowledge graph is built from your documents and linked into every answer. Part of the RagFlow line.**
 
-**Part of the RagFlow line, enterprise RAG built year by year. This repository is RagFlowKAG, Knowledge Augmented Generation, 2025.** See [the full line](#the-ragflow-line) below.
+**Part of the RagFlow line, a series of reference enterprise RAG implementations. This repository is RagFlowKAG, Knowledge Augmented Generation.** See [the full line](#the-ragflow-line) below.
 
-RagFlowKAG retrieves on two channels at once. The vector channel pulls the most similar chunks, as in every earlier rung. The graph channel links the entities in your question into a knowledge graph extracted from the documents, and pulls their one hop neighbourhood of facts. The answer is grounded in both, and the linked triples are returned with it, so the structured reasoning is visible rather than hidden. It runs fully locally on Ollama at no cost.
+RagFlowKAG retrieves on two channels at once. The vector channel pulls the most similar chunks, as in every earlier implementation. The graph channel links the entities in your question into a knowledge graph extracted from the documents, and pulls their one hop neighbourhood of facts. The answer is grounded in both, and the linked triples are returned with it, so the structured reasoning is visible rather than hidden. It runs fully locally on Ollama at no cost.
 
 [![CI](https://github.com/mlvpatel/RagFlowKAG/actions/workflows/ci.yml/badge.svg)](https://github.com/mlvpatel/RagFlowKAG/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.11-blue) ![Knowledge graph](https://img.shields.io/badge/retrieval-vector%20plus%20graph-blue) ![Postgres](https://img.shields.io/badge/Postgres-pgvector-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -139,7 +139,7 @@ docker/           Dockerfile and Compose stack
 
 ## The RagFlow line
 
-RagFlowKAG is a 2025 rung in a year by year line of enterprise RAG systems, each a faithful snapshot of the best production RAG of its year. 2025 has two: the agentic RagFlowProPlus and this knowledge graph approach.
+RagFlowKAG is one implementation in the RagFlow line, a series demonstrating distinct enterprise RAG retrieval strategies. Two related approaches are the agentic RagFlowProPlus and this knowledge graph approach.
 
 | Year | Repository | Generation |
 |---|---|---|
@@ -149,7 +149,7 @@ RagFlowKAG is a 2025 rung in a year by year line of enterprise RAG systems, each
 | 2025 | [RagFlowProPlus](https://github.com/mlvpatel/RagFlowProPlus), RagFlowKAG (this repo) | Agentic RAG, and knowledge augmented generation |
 | 2026 | [RagFlowProMax](https://github.com/mlvpatel/RagFlowProMax), UltimateRAG | Multi agent enterprise, multimodal |
 
-The full line is collected in the [rag-catalog](https://github.com/mlvpatel/rag-catalog) hub, which benchmarks the main rungs on the same golden questions, keyless.
+The full line is collected in the [rag-catalog](https://github.com/mlvpatel/rag-catalog) hub, which benchmarks the main implementations on the same golden questions, keyless.
 
 ## Author
 
