@@ -139,15 +139,18 @@ docker/           Dockerfile and Compose stack
 
 ## The RAG line
 
-rag-graph-2024 is one implementation in the RAG line, a series demonstrating distinct enterprise RAG retrieval strategies. Two related approaches are the agentic rag-agentic-2025 and this knowledge graph approach.
+This repo is the Graph (2024) rung. Each rung adds one idea and keeps the ones below it.
 
-| Year | Repository | Generation |
+| Year | Repository | Strategy |
 |---|---|---|
-| 2022 | [rag-naive-2022](https://github.com/mlvpatel/rag-naive-2022) | Naive RAG, single dense retrieval |
-| 2023 | [rag-advanced-2023](https://github.com/mlvpatel/rag-advanced-2023) | Advanced RAG, hybrid retrieval and reranking |
-| 2024 | [rag-modular-2023](https://github.com/mlvpatel/rag-modular-2023) | Modular production RAG, pgvector, streaming, evaluation |
-| 2025 | [rag-agentic-2025](https://github.com/mlvpatel/rag-agentic-2025), rag-graph-2024 (this repo) | Agentic RAG, and knowledge augmented generation |
-| 2026 | [rag-multiagent-2026](https://github.com/mlvpatel/rag-multiagent-2026), rag-multimodal-2026 | Multi agent enterprise, multimodal |
+| 2022 | [rag-naive-2022](https://github.com/mlvpatel/rag-naive-2022) | Naive: one dense search over Chroma |
+| 2023 | [rag-advanced-2023](https://github.com/mlvpatel/rag-advanced-2023) | Advanced: hybrid, RRF and cross encoder, in Python |
+| 2023 | [rag-modular-2023](https://github.com/mlvpatel/rag-modular-2023) | Modular: pgvector, RRF in SQL, streaming, memory, evaluation |
+| 2024 | rag-graph-2024, this repo | Graph: entity and triple knowledge graph linked into answers |
+| 2024 | [rag-cache-2024](https://github.com/mlvpatel/rag-cache-2024) | Cache: no retrieval, corpus in context with a semantic cache |
+| 2025 | [rag-agentic-2025](https://github.com/mlvpatel/rag-agentic-2025) | Agentic: bounded self correcting loop, confidence gated |
+| 2026 | [rag-multiagent-2026](https://github.com/mlvpatel/rag-multiagent-2026) | Multi agent: supervisor, specialists, verifier |
+| 2026 | [rag-multimodal-2026](https://github.com/mlvpatel/rag-multimodal-2026) | Multimodal: text and images in one vector space |
 
 ## Author
 
