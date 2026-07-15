@@ -3,8 +3,8 @@ Hybrid retrieval for rag-graph-2024.
 
 Dense search (pgvector cosine distance) and sparse search (Postgres full
 text) are fused with Reciprocal Rank Fusion inside a single SQL query, so
-there is no per query index rebuild in Python. The rag-graph-2024 baseline rebuilt
-a BM25 index over the whole corpus on every query; this replaces that.
+there is no per query index rebuild in Python. The rag-advanced-2023 rung
+rebuilt a BM25 index over the whole corpus on every query; this replaces that.
 
 A cross encoder reranker (bge-reranker-v2-m3) then reorders the fused
 candidates. The reranker is loaded lazily and can be injected, so tests

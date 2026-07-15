@@ -44,10 +44,8 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     google_api_key: str | None = None
     openai_api_key: str | None = None
-    api_key: str = "change_me"
     embedding_provider: str = "google"  # google or ollama
     embedding_model: str = "models/gemini-embedding-001"
-    embedding_dims: int = 768
     ollama_base_url: str = "http://localhost:11434"
     ollama_embedding_model: str = "nomic-embed-text"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
@@ -56,17 +54,14 @@ class Settings(BaseSettings):
     reranker_top_n: int = 5
     # Knowledge graph controls. The extract model builds triples at index time
     # and links query entities at answer time; the neighbour limit caps how much
-    # of the graph one question can pull in.
+    # of the graph one question can pull in; the chunk cap bounds extraction
+    # cost, since building the graph is one LLM call per chunk.
     kag_extract_model: str = "qwen2.5:7b-instruct"
     kag_neighbor_limit: int = 20
-    # Agentic loop controls. Every limit is bounded so the self-correction
-    # loop always terminates, which is the cost guard from the enterprise design.
-    agent_confidence_threshold: float = 0.6
-    agent_max_retrieval_attempts: int = 2
-    agent_enable_web: bool = False
-    agent_max_steps: int = 12
+    kag_max_chunks: int = 10
     chunk_size: int = 1000
     chunk_overlap: int = 200
+    max_upload_mb: int = 25
     allowed_origins: str = "http://localhost:8501"
     log_level: str = "INFO"
     env: str = "dev"

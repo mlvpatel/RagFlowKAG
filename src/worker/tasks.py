@@ -1,6 +1,7 @@
 """Background tasks: asynchronous document indexing into pgvector."""
 
 import logging
+import os
 
 from src.api.db_utils import delete_document_record, insert_document_record
 from src.embeddings.vectorstore_utils import index_document
@@ -17,16 +18,23 @@ def process_document(file_path: str, filename: str) -> dict:
     Ordering matters: the database record is inserted first so we get a real
     integer file_id, which is then attached to every chunk stored in pgvector.
     If indexing fails, the record is rolled back so we never leave a document
-    listed as present with nothing indexed behind it.
+    listed as present with nothing indexed behind it. The uploaded file is
+    removed afterwards either way, or uploads would grow the disk forever.
     """
     file_id = insert_document_record(filename)
-    indexed = index_document(file_path, file_id)
-    if not indexed:
-        delete_document_record(file_id)
-        logger.error("Indexing failed for %s, rolled back record %s", filename, file_id)
-        return {"status": "failed", "file_id": file_id}
     try:
-        build_graph(file_path, file_id, filename)
-    except Exception as exc:
-        logger.warning("KAG graph build skipped for %s: %s", filename, exc)
-    return {"status": "completed", "file_id": file_id}
+        indexed = index_document(file_path, file_id)
+        if not indexed:
+            delete_document_record(file_id)
+            logger.error(
+                "Indexing failed for %s, rolled back record %s", filename, file_id
+            )
+            return {"status": "failed", "file_id": file_id}
+        try:
+            build_graph(file_path, file_id, filename)
+        except Exception as exc:
+            logger.warning("KAG graph build skipped for %s: %s", filename, exc)
+        return {"status": "completed", "file_id": file_id}
+    finally:
+        if os.path.exists(file_path):
+            os.remove(file_path)

@@ -13,13 +13,12 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_postgres import PGVector
 
 import src.core.config as config_mod
-import src.core.langchain_utils as lu
 import src.embeddings.vectorstore_utils as vs
 
 FILE_ID = 987654
 FACTS = [
     "The capital of France is Paris.",
-    "rag-modular-2023 uses pgvector on Postgres for hybrid retrieval.",
+    "rag-graph-2024 uses pgvector on Postgres for hybrid retrieval.",
     "Redis is the Celery broker used for background indexing.",
 ]
 
@@ -69,9 +68,13 @@ def test_end_to_end_rag_answer_is_grounded(pg_available, monkeypatch):
     )
 
     try:
-        result = lu.answer_question("llama3.2:3b", "What is the capital of France?")
+        from src.kag import graph_store
+        from src.kag.engine import run_kag
+
+        graph_store.create_kg_edges()
+        result = run_kag("llama3.2:3b", "What is the capital of France?")
     finally:
         _cleanup()
 
-    assert result["context"], "expected retrieved context"
+    assert any(s["step"] == "vector_retrieval" and s["chunks"] for s in result["steps"])
     assert "paris" in result["answer"].lower()

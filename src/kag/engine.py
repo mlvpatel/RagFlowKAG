@@ -16,7 +16,12 @@ from typing import Any, Dict, List
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.core.config import settings
-from src.core.langchain_utils import _make_llm, get_final_retriever
+from src.core.langchain_utils import (
+    _make_llm,
+    _reformulate_query,
+    _to_lc_messages,
+    get_final_retriever,
+)
 from src.embeddings.vectorstore_utils import load_and_split_document
 from src.kag import graph_store
 from src.kag.extract import extract_entities, extract_triples
@@ -42,16 +47,28 @@ def _facts_text(edges: List[Dict[str, Any]]) -> str:
 
 
 def run_kag(model: str, question: str, chat_history=None) -> dict:
-    """Answer a question with vector plus knowledge graph retrieval."""
+    """Answer a question with vector plus knowledge graph retrieval.
+
+    A follow-up like "and who runs it?" carries a pronoun that neither the
+    vector search nor the entity linker can resolve, so with history present
+    the question is first rewritten into a standalone query, and everything
+    downstream (retrieval, entity linking, the answer) works on that.
+    """
     llm = _make_llm(model, temperature=0)
     steps: List[Dict[str, Any]] = []
 
+    # 0. Resolve the follow-up against the session history.
+    history = _to_lc_messages(chat_history)
+    query = _reformulate_query(llm, question, history)
+    if query != question:
+        steps.append({"step": "reformulate", "standalone_question": query})
+
     # 1. Vector channel: the dense chunks, same as every earlier rung.
-    docs = get_final_retriever().invoke(question)
+    docs = get_final_retriever().invoke(query)
     steps.append({"step": "vector_retrieval", "chunks": len(docs)})
 
     # 2. Graph channel: link the question's entities into the knowledge graph.
-    entities = extract_entities(llm, question)
+    entities = extract_entities(llm, query)
     steps.append({"step": "entity_linking", "entities": entities})
     edges = graph_store.match_neighbors(entities, limit=settings.kag_neighbor_limit)
     steps.append({"step": "graph_expansion", "facts": len(edges)})
@@ -60,7 +77,7 @@ def run_kag(model: str, question: str, chat_history=None) -> dict:
     context = "\n\n".join(doc.page_content for doc in docs) or "None."
     system = _QA_SYSTEM.format(context=context, facts=_facts_text(edges))
     answer = llm.invoke(
-        [SystemMessage(content=system), HumanMessage(content=question)]
+        [SystemMessage(content=system), HumanMessage(content=query)]
     ).content
     steps.append({"step": "grounded_answer"})
 
@@ -87,16 +104,20 @@ def build_graph(
     file_id: int,
     filename: str,
     model: str | None = None,
-    max_chunks: int = 10,
+    max_chunks: int | None = None,
 ) -> int:
     """Extract triples from a document's chunks and store them in the graph.
 
     Runs at index time. Best effort: any extraction failure is logged and
     skipped so it never blocks the vector indexing that already succeeded.
+    Extraction covers the first kag_max_chunks chunks: one LLM call per chunk
+    is the cost, so the cap is the price control, and it is a setting rather
+    than a constant so a corpus of long documents can raise it deliberately.
     """
     from src.core.config import settings
 
     model = model or settings.kag_extract_model
+    max_chunks = max_chunks if max_chunks is not None else settings.kag_max_chunks
     llm = _make_llm(model, temperature=0)
     try:
         splits = load_and_split_document(file_path)

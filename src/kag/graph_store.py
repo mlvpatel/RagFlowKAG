@@ -23,7 +23,15 @@ def _pool():
 
 
 def create_kg_edges() -> None:
-    """Create the kg_edges table and its case insensitive lookup indexes."""
+    """Create the kg_edges table and its lookup indexes.
+
+    Entity linking matches with a leading wildcard (ILIKE '%term%'), which a
+    btree index can never serve. Trigram GIN indexes are the structure that
+    actually accelerates substring matching, so those are what get built; the
+    pg_trgm extension ships with Postgres and is enabled by the docker init
+    script. If the extension is unavailable (a managed instance without it),
+    the indexes are skipped and queries fall back to a scan, correct but slow.
+    """
     with _pool().connection() as conn:
         with conn.cursor() as cur:
             cur.execute("""
@@ -37,12 +45,19 @@ def create_kg_edges() -> None:
                     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
                 )
                 """)
-            cur.execute(
-                "CREATE INDEX IF NOT EXISTS idx_kg_subject ON kg_edges (lower(subject))"
-            )
-            cur.execute(
-                "CREATE INDEX IF NOT EXISTS idx_kg_object ON kg_edges (lower(object))"
-            )
+        try:
+            with conn.cursor() as cur:
+                cur.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm")
+                cur.execute(
+                    "CREATE INDEX IF NOT EXISTS idx_kg_subject_trgm "
+                    "ON kg_edges USING gin (subject gin_trgm_ops)"
+                )
+                cur.execute(
+                    "CREATE INDEX IF NOT EXISTS idx_kg_object_trgm "
+                    "ON kg_edges USING gin (object gin_trgm_ops)"
+                )
+        except Exception as exc:
+            logger.warning("pg_trgm indexes unavailable, matching will scan: %s", exc)
 
 
 def insert_edges(edges: List[Dict[str, str]], file_id: int, filename: str) -> int:

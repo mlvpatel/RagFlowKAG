@@ -8,9 +8,6 @@ langchain-ollama>=0.2.0
 langchain-postgres>=0.0.12
 langchain-google-genai>=4.2.0
 
-# Agentic orchestration
-langgraph>=0.2.0
-ddgs>=6.0.0
 
 # Vector store: pgvector on Postgres
 pgvector>=0.3.0
@@ -45,8 +42,6 @@ bleach>=6.2.0
 streamlit>=1.40.0
 requests>=2.32.0
 
-# Eval
-ragas>=0.2.0
 
 # Background tasks
 celery[redis]>=5.4.0

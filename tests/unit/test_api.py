@@ -28,9 +28,23 @@ def test_health_needs_no_auth(client):
     assert response.json()["status"] == "ok"
 
 
-def test_chat_requires_api_key(client):
+def test_chat_needs_no_auth_header(client, monkeypatch):
+    """There is no API key: a bare request must reach the engine, not bounce
+    with a 401. Network exposure is prevented by loopback-only port binding."""
+    monkeypatch.setattr(main, "get_chat_history", lambda session_id: [])
+    monkeypatch.setattr(main, "insert_application_logs", lambda *a: None)
+    monkeypatch.setattr(
+        main,
+        "run_kag",
+        lambda model, q, history: {
+            "answer": "ok",
+            "steps": [],
+            "entities": [],
+            "facts": [],
+        },
+    )
     response = client.post("/v1/chat", json={"question": "hi"})
-    assert response.status_code == 401
+    assert response.status_code == 200
 
 
 def test_chat_runs_kag_and_persists_the_turn(client, monkeypatch):
