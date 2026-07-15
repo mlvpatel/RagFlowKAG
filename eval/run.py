@@ -1,4 +1,4 @@
-"""Run the RagFlowKAG retrieval evaluation against the live database.
+"""Run the rag-graph-2024 retrieval evaluation against the live database.
 
 Indexes the golden documents into a dedicated collection using the configured
 embeddings (Ollama by default here, for a keyless run), retrieves for every
@@ -24,7 +24,7 @@ from src.core.config import settings
 from src.embeddings.vectorstore_utils import _sqlalchemy_url
 from src.retrieval.retrievers import HybridRetriever
 
-COLLECTION = "ragflowkag_eval"
+COLLECTION = "rag_graph_eval"
 
 
 def _cleanup():
@@ -83,7 +83,7 @@ def main(k: int = None) -> dict:
         "top1_accuracy": mean(top1),
     }
 
-    print(f"RagFlowKAG retrieval evaluation (k={k}, {results['questions']} questions)")
+    print(f"rag-graph-2024 retrieval evaluation (k={k}, {results['questions']} questions)")
     print(
         f"  Top-1 accuracy: {results['top1_accuracy']:.3f}   (top result is the right document)"
     )

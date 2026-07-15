@@ -7,7 +7,7 @@ from src.embeddings.vectorstore_utils import index_document
 from src.kag.engine import build_graph
 from src.worker.celery_app import celery_app
 
-logger = logging.getLogger("ragflowkag")
+logger = logging.getLogger("rag_graph")
 
 
 @celery_app.task(name="process_document")

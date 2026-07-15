@@ -1,20 +1,20 @@
-# RagFlowKAG
+# rag-graph-2024
 
-**Knowledge augmented RAG. A knowledge graph is built from your documents and linked into every answer. Part of the RagFlow line.**
+**Knowledge augmented RAG. A knowledge graph is built from your documents and linked into every answer. Part of the RAG line.**
 
-**Part of the RagFlow line, a series of reference enterprise RAG implementations. This repository is RagFlowKAG, Knowledge Augmented Generation.** See [the full line](#the-ragflow-line) below.
+**Part of the RAG line, a series of reference enterprise RAG implementations. This repository is rag-graph-2024, Knowledge Augmented Generation.** See [the full line](#the-rag_naive-line) below.
 
-RagFlowKAG retrieves on two channels at once. The vector channel pulls the most similar chunks, as in every earlier implementation. The graph channel links the entities in your question into a knowledge graph extracted from the documents, and pulls their one hop neighbourhood of facts. The answer is grounded in both, and the linked triples are returned with it, so the structured reasoning is visible rather than hidden. It runs fully locally on Ollama at no cost.
+rag-graph-2024 retrieves on two channels at once. The vector channel pulls the most similar chunks, as in every earlier implementation. The graph channel links the entities in your question into a knowledge graph extracted from the documents, and pulls their one hop neighbourhood of facts. The answer is grounded in both, and the linked triples are returned with it, so the structured reasoning is visible rather than hidden. It runs fully locally on Ollama at no cost.
 
-[![CI](https://github.com/mlvpatel/RagFlowKAG/actions/workflows/ci.yml/badge.svg)](https://github.com/mlvpatel/RagFlowKAG/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.11-blue) ![Knowledge graph](https://img.shields.io/badge/retrieval-vector%20plus%20graph-blue) ![Postgres](https://img.shields.io/badge/Postgres-pgvector-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+[![CI](https://github.com/mlvpatel/rag-graph-2024/actions/workflows/ci.yml/badge.svg)](https://github.com/mlvpatel/rag-graph-2024/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.11-blue) ![Knowledge graph](https://img.shields.io/badge/retrieval-vector%20plus%20graph-blue) ![Postgres](https://img.shields.io/badge/Postgres-pgvector-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-![RagFlowKAG answering with the knowledge graph facts it linked](assets/videos/ragflowkag-demo.gif)
+![rag-graph-2024 answering with the knowledge graph facts it linked](assets/videos/rag_graph-demo.gif)
 
-The clip above is a live, unedited run on a local model over pgvector. The expandable trace shows the vector retrieval, the entities linked into the graph, and the facts that grounded the answer. A full resolution screenshot is at [assets/screenshots/ragflowkag-ui.png](assets/screenshots/ragflowkag-ui.png). No paid keys were used.
+The clip above is a live, unedited run on a local model over pgvector. The expandable trace shows the vector retrieval, the entities linked into the graph, and the facts that grounded the answer. A full resolution screenshot is at [assets/screenshots/rag_graph-ui.png](assets/screenshots/rag_graph-ui.png). No paid keys were used.
 
 ## What makes it knowledge augmented
 
-A pure vector RAG sees text as a bag of chunks. It cannot follow a relationship, because it never stored one. RagFlowKAG adds a structured layer:
+A pure vector RAG sees text as a bag of chunks. It cannot follow a relationship, because it never stored one. rag-graph-2024 adds a structured layer:
 
 | Stage | What happens |
 |---|---|
@@ -137,19 +137,17 @@ tests/            unit and integration tests
 docker/           Dockerfile and Compose stack
 ```
 
-## The RagFlow line
+## The RAG line
 
-RagFlowKAG is one implementation in the RagFlow line, a series demonstrating distinct enterprise RAG retrieval strategies. Two related approaches are the agentic RagFlowProPlus and this knowledge graph approach.
+rag-graph-2024 is one implementation in the RAG line, a series demonstrating distinct enterprise RAG retrieval strategies. Two related approaches are the agentic rag-agentic-2025 and this knowledge graph approach.
 
 | Year | Repository | Generation |
 |---|---|---|
-| 2022 | [RagFlow](https://github.com/mlvpatel/RagFlow) | Naive RAG, single dense retrieval |
-| 2023 | [RagFlowPlus](https://github.com/mlvpatel/RagFlowPlus) | Advanced RAG, hybrid retrieval and reranking |
-| 2024 | [RagFlowPro](https://github.com/mlvpatel/RagFlowPro) | Modular production RAG, pgvector, streaming, evaluation |
-| 2025 | [RagFlowProPlus](https://github.com/mlvpatel/RagFlowProPlus), RagFlowKAG (this repo) | Agentic RAG, and knowledge augmented generation |
-| 2026 | [RagFlowProMax](https://github.com/mlvpatel/RagFlowProMax), UltimateRAG | Multi agent enterprise, multimodal |
-
-The full line is collected in the [rag-catalog](https://github.com/mlvpatel/rag-catalog) hub, which benchmarks the main implementations on the same golden questions, keyless.
+| 2022 | [rag-naive-2022](https://github.com/mlvpatel/rag-naive-2022) | Naive RAG, single dense retrieval |
+| 2023 | [rag-advanced-2023](https://github.com/mlvpatel/rag-advanced-2023) | Advanced RAG, hybrid retrieval and reranking |
+| 2024 | [rag-modular-2023](https://github.com/mlvpatel/rag-modular-2023) | Modular production RAG, pgvector, streaming, evaluation |
+| 2025 | [rag-agentic-2025](https://github.com/mlvpatel/rag-agentic-2025), rag-graph-2024 (this repo) | Agentic RAG, and knowledge augmented generation |
+| 2026 | [rag-multiagent-2026](https://github.com/mlvpatel/rag-multiagent-2026), rag-multimodal-2026 | Multi agent enterprise, multimodal |
 
 ## Author
 

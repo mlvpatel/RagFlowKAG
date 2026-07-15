@@ -1,4 +1,4 @@
-"""RagFlowKAG API: knowledge augmented RAG chat plus document management.
+"""rag-graph-2024 API: knowledge augmented RAG chat plus document management.
 
 The chat endpoint answers with two retrieval channels, dense vector chunks and a
 knowledge graph, and returns the answer along with the linked entities and the
@@ -62,7 +62,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="RagFlowKAG API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="rag-graph-2024 API", version="1.0.0", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(

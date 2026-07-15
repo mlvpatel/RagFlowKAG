@@ -1,4 +1,4 @@
-"""Chat interface for the RagFlowKAG Streamlit app.
+"""Chat interface for the rag-graph-2024 Streamlit app.
 
 Shows the answer plus an expandable trace of the two retrieval channels: the
 dense vector chunks and the knowledge graph facts linked from the question's

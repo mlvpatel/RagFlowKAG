@@ -5,7 +5,7 @@ from celery import Celery
 from src.core.config import settings
 
 celery_app = Celery(
-    "ragflowkag",
+    "rag_graph",
     broker=settings.redis_url,
     backend=settings.redis_url,
 )

@@ -1,4 +1,4 @@
-"""Load the bundled sample documents into RagFlowKAG.
+"""Load the bundled sample documents into rag-graph-2024.
 
 Run this after the stack is up so anyone can try the system on the included
 sample data. For a fully local, no cost run:

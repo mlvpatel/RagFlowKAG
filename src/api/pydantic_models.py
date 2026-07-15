@@ -1,4 +1,4 @@
-"""Request and response models for the RagFlowKAG API."""
+"""Request and response models for the rag-graph-2024 API."""
 
 from datetime import datetime
 from typing import Optional, Union

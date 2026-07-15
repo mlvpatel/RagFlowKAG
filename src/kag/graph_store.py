@@ -1,4 +1,4 @@
-"""Knowledge graph store for RagFlowKAG.
+"""Knowledge graph store for rag-graph-2024.
 
 The graph is a single edge table of subject, predicate, object triples on the
 same Postgres instance as pgvector, so no extra service is needed. Nodes are

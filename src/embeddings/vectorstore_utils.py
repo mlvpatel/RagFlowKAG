@@ -1,8 +1,8 @@
 """
-Vector store and embedding utilities for RagFlowKAG.
+Vector store and embedding utilities for rag-graph-2024.
 
 Google gemini-embedding-001 embeddings stored in pgvector on Postgres.
-This module preserves the public interface of the RAGFlow chroma_utils
+This module preserves the public interface of the rag-graph-2024 chroma_utils
 baseline (load_and_split_document, index_document, delete_doc) while
 swapping ChromaDB for pgvector, so the rest of the app keeps working.
 
@@ -24,7 +24,7 @@ from src.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-COLLECTION_NAME = "ragflowkag_documents"
+COLLECTION_NAME = "rag_graph_documents"
 
 _text_splitter = None
 _document_embeddings = None

@@ -1,4 +1,4 @@
-"""Knowledge augmented generation engine for RagFlowKAG.
+"""Knowledge augmented generation engine for rag-graph-2024.
 
 Retrieval is two channels. The vector channel pulls the most similar chunks, as
 in every earlier rung. The graph channel links the question's entities into the
@@ -24,7 +24,7 @@ from src.kag.extract import extract_entities, extract_triples
 logger = logging.getLogger(__name__)
 
 _QA_SYSTEM = (
-    "You answer questions for RagFlowKAG using the retrieved document context "
+    "You answer questions for rag-graph-2024 using the retrieved document context "
     "and the knowledge graph facts below. Use only what is given. If neither the "
     "context nor the facts contain the answer, say you do not have that "
     "information rather than inventing one.\n\n"

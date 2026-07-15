@@ -1,1 +1,1 @@
-"""Knowledge graph layer for RagFlowKAG (knowledge augmented generation)."""
+"""Knowledge graph layer for rag-graph-2024 (knowledge augmented generation)."""

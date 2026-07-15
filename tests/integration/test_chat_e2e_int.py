@@ -19,7 +19,7 @@ import src.embeddings.vectorstore_utils as vs
 FILE_ID = 987654
 FACTS = [
     "The capital of France is Paris.",
-    "RagFlowPro uses pgvector on Postgres for hybrid retrieval.",
+    "rag-modular-2023 uses pgvector on Postgres for hybrid retrieval.",
     "Redis is the Celery broker used for background indexing.",
 ]
 

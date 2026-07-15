@@ -1,4 +1,4 @@
-"""RagFlowKAG Streamlit application entry point."""
+"""rag-graph-2024 Streamlit application entry point."""
 
 import os
 import sys
@@ -12,8 +12,8 @@ from frontend.sidebar import display_sidebar  # noqa: E402
 
 
 def main() -> None:
-    st.set_page_config(page_title="RagFlowKAG", layout="wide")
-    st.title("RagFlowKAG")
+    st.set_page_config(page_title="rag-graph-2024", layout="wide")
+    st.title("rag-graph-2024")
     st.caption(
         "Knowledge augmented RAG, 2025. A knowledge graph built from your "
         "documents, linked to the answer."

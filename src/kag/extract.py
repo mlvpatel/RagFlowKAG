@@ -1,4 +1,4 @@
-"""LLM extraction of knowledge triples and query entities for RagFlowKAG.
+"""LLM extraction of knowledge triples and query entities for rag-graph-2024.
 
 Both use a small local model by default, so indexing and querying stay keyless.
 Output is constrained to compact JSON and parsed defensively, so a malformed
