@@ -83,7 +83,9 @@ def main(k: int = None) -> dict:
         "top1_accuracy": mean(top1),
     }
 
-    print(f"rag-graph-2024 retrieval evaluation (k={k}, {results['questions']} questions)")
+    print(
+        f"rag-graph-2024 retrieval evaluation (k={k}, {results['questions']} questions)"
+    )
     print(
         f"  Top-1 accuracy: {results['top1_accuracy']:.3f}   (top result is the right document)"
     )
