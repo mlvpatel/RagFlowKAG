@@ -6,9 +6,7 @@ Part of the RAG line, a series of reference enterprise RAG implementations, one 
 
 [![CI](https://github.com/mlvpatel/rag-graph-2024/actions/workflows/ci.yml/badge.svg)](https://github.com/mlvpatel/rag-graph-2024/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.11-blue) ![Knowledge graph](https://img.shields.io/badge/retrieval-vector%20plus%20graph-blue) ![Postgres](https://img.shields.io/badge/Postgres-pgvector-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-![rag-graph-2024 answering with the knowledge graph facts it linked](assets/videos/rag-graph-2024-demo.gif)
-
-The clip above is a live, unedited run on a local model over pgvector. The expandable trace shows the vector retrieval, the entities linked into the graph, and the facts that grounded the answer. A full resolution screenshot is at [assets/screenshots/rag-graph-2024-ui.png](assets/screenshots/rag-graph-2024-ui.png). No paid keys were used.
+![RagChatBot banner](assets/banner.svg)
 
 ## Contents
 
