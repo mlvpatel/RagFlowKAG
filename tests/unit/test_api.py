@@ -69,7 +69,6 @@ def test_chat_runs_kag_and_persists_the_turn(client, monkeypatch):
     response = client.post(
         "/v1/chat",
         json={"question": "hi", "model": "llama3.2:3b"},
-        headers={"X-API-Key": "change_me"},
     )
 
     assert response.status_code == 200
@@ -87,7 +86,6 @@ def test_upload_rejects_unsupported_extension(client, monkeypatch, tmp_path):
     response = client.post(
         "/v1/upload-doc",
         files={"file": ("malware.exe", b"data")},
-        headers={"X-API-Key": "change_me"},
     )
     assert response.status_code == 400
 
@@ -98,7 +96,6 @@ def test_upload_accepts_supported_file_and_queues_task(client, monkeypatch, tmp_
     response = client.post(
         "/v1/upload-doc",
         files={"file": ("notes.txt", b"hello world")},
-        headers={"X-API-Key": "change_me"},
     )
     assert response.status_code == 200
     assert response.json()["task_id"] == "tid123"
